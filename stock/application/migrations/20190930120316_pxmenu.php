@@ -37,8 +37,9 @@ class Migration_Pxmenu extends CI_Migration
                 'null' => true,
             ), 
             'isaktif'=> array(
-                'type' => 'Enum', 
-                'constraint' => '255',
+                'type' => 'smallint', 
+                'constraint' => '1',
+                'default' => '1',
                 'null' => true,
             ), 
             'position' => array(
@@ -46,9 +47,9 @@ class Migration_Pxmenu extends CI_Migration
                 'constraint' => '11',
                 'null' => true,
             ),
-            'created_at' => array(
-                'type' => 'DATETIME',
-                'null' => false,
+            'registerdate' => array(
+                'type' => 'timestamp',                                
+                'null' => true,
             )
         ));
         $this->dbforge->add_key('id', true);
