@@ -54,4 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['migrate'] = 'Migrate';
-$route['public'] = 'Welcome';
+$route['public'] = 'welcome';
+
+$route['login'] = 'auth';
