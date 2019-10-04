@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"phplucidframe/bare-migration": "^1.1"
+		"phplucidframe/bare-migration": "^1.1",
+		"filp/whoops": "^2.5"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
