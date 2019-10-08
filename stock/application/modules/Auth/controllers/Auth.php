@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,6 +13,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author afes
  */
 class Auth extends MY_Controller {
+
     //put your code here
 
     function __construct() {
@@ -23,64 +25,66 @@ class Auth extends MY_Controller {
 
     function index() {
         $data['assets'] = [
-            'bootstrap_css' => base_url('assets/css/bootstrap.min.css'),
-            'bootstrap_responsife_css' => base_url('assets/css/bootstrap_responsive.min.css'),
+            'bootstrap_css' => base_url('assets/plugins/bootstrap/css/bootstrap.min.css'),
+            'bootstrap_responsife_css' => base_url('assets/plugins/bootstrap/css/bootstrap-responsive.min.css'),
             'fontawesome_css' => base_url('assets/plugins/font-awesome/css/font-awesome.css'),
-            'style_metro' => base_url('assets/css/style-metro.css'),
-	        'style' => base_url('assets/css/style.css'),
-            'style_responsive' => base_url('assets/css/style-responsive.css'),
-            'default' => base_url('assets/css/themes/default.css'),
-	        'uniform_style' => base_url('assets/plugins/uniform/css/uniform.default.css'),
-	        'select2_metro' => base_url('assets/plugins/select2/select2_metro.css'),
-	        'login_soft'=> base_url('assets/css/pages/login-soft.css'),
+            'style_metro_css' => base_url('assets/css/style-metro.css'),
+            'style_css' => base_url('assets/css/style.css'),
+            'style_responsive_css' => base_url('assets/css/style-responsive.css'),
+            'default_css' => base_url('assets/css/themes/default.css'),
+            'uniform_style_css' => base_url('assets/plugins/uniform/css/uniform.default.css'),
+            'select2_metro_css' => base_url('assets/plugins/select2/select2_metro.css'),
+            'login_soft_css' => base_url('assets/css/pages/login-soft.css'),
             'bootstrap_js' => base_url('assets/js/bootstrap.min.js'),
-            'jquery' => base_url('assets/js/jquery-2.2.4.min.js'),
-            'jquery_migrate' => base_url('assets/plugins/jquery-migrate-1.2.1.min.js'),	
-	        'jquery_ui' =>base_url('assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js'),
-	        'twitter_bootstrap_hover_dropdown' => base_url('assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js'),
-	        'excanvas' =>base_url('assets/plugins/excanvas.min.js'),
-	        'respond'=> base_url('assets/plugins/respond.min.js'), 
-	        'jquery_slimscroll' => base_url('assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js'),
-	        'jquery_blockui' => base_url('assets/plugins/jquery.blockui.min.js'),
-	        'jquery_cookie' => base_url('assets/plugins/jquery.cookie.min.js'),
-	        'jquery_uniform' => base_url('assets/plugins/uniform/jquery.uniform.min.js'),        
-            'jquery_validation' => base_url('assets/plugins/jquery-validation/dist/jquery.validate.min.js'),
-	        'jquery_backstretch' => base_url('assets/plugins/backstretch/jquery.backstretch.min.js'),
-	        'select2' => base_url('assets/plugins/select2/select2.min.js'),
-    	    'app' => base_url('assets/scripts/app.js'),
-	        'login_soft' => base_url('assets/scripts/login-soft.js'),    
-	
+            'jquery_js' => base_url('assets/js/jquery-2.2.4.min.js'),
+            'jquery_migrate_js' => base_url('assets/plugins/jquery-migrate-1.2.1.min.js'),
+            'jquery_ui_js' => base_url('assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js'),
+            'twitter_bootstrap_hover_dropdown_js' => base_url('assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js'),
+            'excanvas_js' => base_url('assets/plugins/excanvas.min.js'),
+            'respond_js' => base_url('assets/plugins/respond.min.js'),
+            'jquery_slimscroll_js' => base_url('assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js'),
+            'jquery_blockui_js' => base_url('assets/plugins/jquery.blockui.min.js'),
+            'jquery_cookie_js' => base_url('assets/plugins/jquery.cookie.min.js'),
+            'jquery_uniform_js' => base_url('assets/plugins/uniform/jquery.uniform.min.js'),
+            'jquery_validation_js' => base_url('assets/plugins/jquery-validation/dist/jquery.validate.min.js'),
+            'jquery_backstretch_js' => base_url('assets/plugins/backstretch/jquery.backstretch.min.js'),
+            'select2_js' => base_url('assets/plugins/select2/select2.min.js'),
+            'app_js' => base_url('assets/scripts/app.js'),
+            'login_soft_js' => base_url('assets/scripts/login-soft.js'),
+            'logo_bio_png' => base_url('assets/img/kop.png'),
+            'swal_js' => base_url('assets/plugins/sweetalert/dist/sweetalert.min.js'),
         ];
         $this->load->view('login', $data);
     }
 
     function checkLogin() {
-        $email      = $this->input->post('email');        
-        $password = $this->input->post('password',TRUE);
-        $hashPass = password_hash($password,PASSWORD_DEFAULT);
-        $test     = password_verify($password, $hashPass);                
+        $email = $this->input->post('email');
+        $password = $this->input->post('password', TRUE);
+        $hashPass = password_hash($password, PASSWORD_DEFAULT);
+        $test = password_verify($password, $hashPass);
         // query chek users
-        $this->db->where('username',$email);
+        $this->db->where('username', $email);
         //$this->db->where('password',  $hashPass);
-        $users       = $this->db->get('pxuserlogin');
-        if($users->num_rows()>0){
+        $users = $this->db->get('pxuserlogin');
+        if ($users->num_rows() > 0) {
             $user = $users->row_array();
-            if(password_verify($password,$user['password'])){
+            if (password_verify($password, $user['password'])) {
                 // retrive user data to session
                 $this->session->set_userdata($user);
                 redirect('backend');
-            }else{
+            } else {
                 redirect('auth');
             }
-        }else{            
-            $this->session->set_flashdata('status_login','email atau password yang anda input salah');
+        } else {
+            $this->session->set_flashdata('status_login', 'email atau password yang anda input salah');
             redirect('auth');
         }
     }
 
     function logout() {
         $this->session->sess_destroy();
-        $this->session->set_flashdata('status_login','Anda sudah berhasil keluar dari aplikasi');
+        $this->session->set_flashdata('status_login', 'Anda sudah berhasil keluar dari aplikasi');
         redirect('welcome');
     }
+
 }
