@@ -56,4 +56,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['migrate'] = 'Migrate';
 $route['public'] = 'welcome';
 
-$route['login'] = 'auth';
+$route['login'] = 'Auth';
+$route['login_action'] = 'Auth/checkLogin';
