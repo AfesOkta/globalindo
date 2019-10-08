@@ -63,7 +63,7 @@ class Auth extends MY_Controller {
         $hashPass = password_hash($password, PASSWORD_DEFAULT);
         $test = password_verify($password, $hashPass);
         // query chek users
-        $this->db->where('username', $email);
+        $this->db->where('userid', $email);
         //$this->db->where('password',  $hashPass);
         $users = $this->db->get('pxuserlogin');
         if ($users->num_rows() > 0) {
@@ -73,11 +73,11 @@ class Auth extends MY_Controller {
                 $this->session->set_userdata($user);
                 redirect('backend');
             } else {
-                redirect('auth');
+                redirect('login');
             }
         } else {
             $this->session->set_flashdata('status_login', 'email atau password yang anda input salah');
-            redirect('auth');
+            redirect('login');
         }
     }
 
