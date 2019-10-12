@@ -59,8 +59,21 @@ class Migration_Add_Table_Pxuserlogin extends CI_Migration
                 'default' => '1',
                 'null' => true,
             ),            
-            'registerdate' => array(
+            'register_date' => array(
                 'type' => 'timestamp',
+                'null' => true,
+            ),            
+            'last_login' => array(
+                'type' => 'timestamp',
+                'null' => true,
+            ),            
+            'modified_on' => array(
+                'type' => 'timestamp',
+                'null' => true,
+            ),            
+            'last_ip' => array(
+                'type' => 'varchar',
+                'constrains' => 255,
                 'null' => true,
             )
         ));

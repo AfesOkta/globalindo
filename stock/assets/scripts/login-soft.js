@@ -243,12 +243,11 @@ var Login = function () {
     
     return {
         //main function to initiate the module
-        init: function () {
-        	
+        init: function () {        	
             handleLogin();
             handleForgetPassword();
-            handleRegister();        
-
+			handleRegister();        
+						
             $.backstretch([
 		        "assets/img/bg/1.jpg",
 		        "assets/img/bg/2.jpg",

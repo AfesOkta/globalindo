@@ -1,44 +1,54 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-/* load the MX_Router class */
-require APPPATH . "third_party/MX/Controller.php";
-class MY_Controller extends MX_Controller
-{
-    //
-    public $CI;
+// Load the MX_Controller class
+require APPPATH . 'third_party/MX/Controller.php';
 
-    /**
-     * An array of variables to be passed through to the
-     * view, layout,....
-     */
-    protected $data = array();
+class MY_Controller extends MX_Controller {
 
-    /**
-     * [__construct description]
-     *
-     * @method __construct
-     */
+    private $_ci;
+
+    public $data = array();
     public function __construct()
     {
-        // To inherit directly the attributes of the parent class.
         parent::__construct();
 
-        // This function returns the main CodeIgniter object.
-        // Normally, to call any of the available CodeIgniter object or pre defined library classes then you need to declare.
-        $CI =& get_instance();
+        $this->_ci =& get_instance();
+    }
 
-        // Copyright year calculation for the footer
-        $begin = 2019;
-        $end =  date("Y");
-        $date = "$begin - $end";
+    /**
+     * Load Javascript inside the page's body
+     * @access  public
+     * @param   string  $script
+     */
+    public function _load_script($script)
+    {
+        if (isset($this->_ci->template) && is_object($this->_ci->template))
+        {
+            // Queue up the script to be executed after the page is completely rendered
+            echo <<< JS
+<script>
+    var CIS = CIS || { Script: { queue: [] } };
+    CIS.Script.queue.push(function() { $script });
+</script>
+JS;
+        }
+        else
+        {
+            echo '<script>' . $script . '</script>';
+        }
+    }
 
-        // Copyright
-        $this->data['copyright'] = $date;
+}
+
+class Ajax_Controller extends MY_Controller {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->load->library('response');
     }
 }
 
-// Backend controller
-require_once(APPPATH.'core/BackendController.php');
-
-// Frontend controller
-require_once(APPPATH.'core/FrontendController.php');
+/* End of file MY_Controller.php */
+/* Location: ./application/core/MY_Controller.php */
