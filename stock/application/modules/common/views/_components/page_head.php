@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
-    <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" />
-    <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/css/jquery.lightbox-0.5.css') ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/lib/bootstrap/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?php echo site_url('assets/lib/jasny-bootstrap/css/jasny-bootstrap.min.css') ?>">
-
-
-    <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/css/main.css') ?>" />
-    <link rel="stylesheet" href="<?php echo site_url('assets/css/datatables.css') ?>">
-
-    <script src="<?php echo site_url('assets/lib/jquery/jquery.min.js') ?>"></script>
-    <script src="<?php echo site_url('assets/lib/bootstrap/js/bootstrap.min.js') ?>"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="<?php echo site_url('assets/js/main.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo site_url('assets/js/vendor/modernizr-2.6.2.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo site_url('assets/js/jquery.masonry.min.js') ?>"></script>
-
-    <script src="<?php echo site_url('assets/lib/jquery.orgchart/js/jquery.orgchart.js') ?>"></script>
-
-
-    <script src="<?php echo site_url('assets/lib/datatables/jquery.dataTables.js') ?>"></script>
-    <script src="<?php echo site_url('assets/js/datatables.js') ?>"></script>
-
-    <script src="<?php echo site_url('assets/lib/jasny-bootstrap/js/jasny-bootstrap.min.js') ?>"></script>
-    <script src="<?php echo site_url('assets/lib/select2-3.4.2/select2.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo site_url('assets/js/jquery.lightbox-0.5.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo site_url('assets/js/custom.js') ?>"></script>
+<meta charset="utf-8" />
+    <title>Metronic | Admin Dashboard Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="<?= $assets['bootstrap_css'] ?>"  rel="stylesheet" type="text/css" />
+    <link href="<?= $assets['bootstrap_responsife_css'] ?>"  rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<?= $assets['bootstrap_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['bootstrap_responsife_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['fontawesome_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['style_metro_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['style_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['style_responsive_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['default_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['uniform_style_css'] ?>" />
+    <link rel="stylesheet" href="<?= $assets['select2_metro_css'] ?>" />    
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+    <link rel="stylesheet" href="<?= $assets['jquery_gritter_css'] ?>" />    
+    <link rel="stylesheet" href="<?= $assets['daterangepicker_css'] ?>" />    
+    <link rel="stylesheet" href="<?= $assets['fullcalendar_css'] ?>" />    
+    <link rel="stylesheet" href="<?= $assets['jqvmap_css'] ?>" />    
+    <link rel="stylesheet" href="<?= $assets['jquery_pie_chart_css'] ?>" media="screen" />
+    <!-- END PAGE LEVEL PLUGIN STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" href="<?= $assets['task_css'] ?>" />    
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body class="">
+<body class="page-header-fixed">
