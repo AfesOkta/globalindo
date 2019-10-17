@@ -1,4 +1,4 @@
-<?php $this->load->view('common/_components/page_head'); ?>
+<?php $this->load->view('common/_components/page_head');?>
 <div class="header navbar navbar-inverse navbar-fixed-top">
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="navbar-inner">
@@ -144,7 +144,7 @@
                                 </li>
                                 <li>
                                     <a href="inbox.html?a=view">
-                                        <span class="photo"><img src="<?php echo site_url('./assets/img/avatar1.jpg')?>"
+                                        <span class="photo"><img src="<?php echo site_url('./assets/img/avatar1.jpg') ?>"
                                                 alt="" /></span>
                                         <span class="subject">
                                             <span class="from">Bob Nilson</span>
@@ -158,7 +158,7 @@
                                 </li>
                                 <li>
                                     <a href="inbox.html?a=view">
-                                        <span class="photo"><img src="<?php echo site_url('./assets/img/avatar2.jpg')?>"
+                                        <span class="photo"><img src="<?php echo site_url('./assets/img/avatar2.jpg') ?>"
                                                 alt="" /></span>
                                         <span class="subject">
                                             <span class="from">Lisa Wong</span>
@@ -171,7 +171,7 @@
                                 </li>
                                 <li>
                                     <a href="inbox.html?a=view">
-                                        <span class="photo"><img src="<?php echo site_url('./assets/img/avatar3.jpg')?>"
+                                        <span class="photo"><img src="<?php echo site_url('./assets/img/avatar3.jpg') ?>"
                                                 alt="" /></span>
                                         <span class="subject">
                                             <span class="from">Richard Doe</span>
@@ -322,50 +322,26 @@
 <!-- END HEADER -->
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-    <section class="main">
-        <div class="mainMenu">
-            <div class="contentMenu">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar nav-collapse collapse">
+        <?php $this->load->view('common/_components/left_menu');?>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content">
+        <?php $this->load->view($subview);?>
+    </div>
+    <!-- END CONTENT -->
+    <div class="footer">
+        <div class="footer-inner">
+            2013 &copy; Metronic by keenthemes.
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+            <i class="icon-angle-up"></i>
+            </span>
+        </div>
+    </div>
 
-                <div class="menuall">
-                    <div class="kisiBilgi ">
-                        <div class="koseResim goldimg">
-                            <img src="<?php echo site_url('/assets/img/gold.png') ?>" alt="">
-                            <div class="gold">Müdür</div>
-                        </div><!-- .koseResim .goldImg -->
-                        <div class="kisiIsim"><?php echo $this->session->userdata('fullname')?></div><!-- .kisiIsim -->
-                        <div class="kisiResim ResimArka">
-                            <img
-                                src="<?php echo ($this->session->userdata('picture') != '' ? site_url('/assets/img/members/' . $this->session->userdata('picture')) : '') ?>" />
-                        </div><!-- .kisiResim .ResimArka -->
-                        <div class="kisiYazi">
-                            <!-- <span class="kisi_bilgileri2"><a href="/authake/user">Profil Ayarları</a> </span> -->
-                            <span class="kisi_bilgileri2"><?php echo $this->session->userdata('email') ?></span>
-                        </div><!-- .kisiYazi -->
-
-                    </div><!-- .kisiBilgi -->
-                    <?php $this->load->view('common/_components/left_menu'); ?>
-                </div><!-- .menuAll -->
-            </div><!-- .contentMenu -->
-            <div class="cikis">
-                <div class="cikisBilgi">
-                    <span class="menuisim2"><a href="<?php echo site_url('public/user/logout') ?>">Çıkış Yap</a></span>
-                    <div class="cikisResim"><img src="<?php echo site_url('/assets/img/cikis.png') ?>" alt="" /></div>
-                </div>
-            </div><!-- .cikis -->
-            <div class="menuisim2 menuisimfooter"></div>
-        </div><!-- .mainMenu -->
-
-        <div class="allmain">
-            <section class="content">
-
-                <div class="contentMain">
-                    <div class="contentGenel">
-                        <?php $this->load->view($subview); ?>
-                    </div><!-- .contentGenel -->
-                </div><!-- .contetnMain -->
-
-            </section><!-- .content -->
-        </div><!-- .allMain -->
-    </section> <!-- .main -->
 </div>
-<?php $this->load->view('common/_components/page_tail'); ?>
+<?php $this->load->view('common/_components/page_tail');?>
