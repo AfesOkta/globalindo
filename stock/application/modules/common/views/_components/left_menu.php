@@ -6,41 +6,72 @@
         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
         <div class="sidebar-toggler hidden-phone"></div>
         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-    </li>
+        &nbsp;
+    </li>    
     <li class="start active ">
-        <a href="index.html">
+        <a href="dashboard">
         <i class="icon-home"></i>
         <span class="title">Dashboard</span>
         <span class="selected"></span>
         </a>
     </li>
-    <?php foreach ($leftmenu as $menu_item) {?>
-        <?php if (isset($menu_item['module']) || isset($menu_item['link']) || (isset($menu_item['subitems']) && count($menu_item['subitems']) > 0)) {?>
-            <li class="<?php echo (isset($menu_item['subitems']) && count($menu_item['subitems']) > 0 ? 'dropdown' : '') ?>">
-                <a href="<?php echo (isset($menu_item['module']) ? site_url($context . '/' . $menu_item['module'] . (isset($menu_item['action']) ? '/' . $menu_item['action'] : '')) : (isset($menu_item['link']) ? site_url($menu_item['link']) : "#")) ?>">
-                    <?php if (isset($menu_item['icon']) || isset($menu_item['module']) && isset($modules[$menu_item['module']]['icon'])) {?>
-                        <img src="<?php site_url('/assets/img/' . (isset($menu_item['icon']) ? $menu_item['icon'] : $modules[$menu_item['module']]['icon']))?>" alt="" />
-                    <?php }?>
-                    <?php echo (isset($menu_item['title']) ? $menu_item['title'] : $modules[$menu_item['module']]['title']) ?>
-                </a>
+    
+        
+        <?php
+        // chek settingan tampilan menu
+        $setting = $this->db->get_where('pxconfig',array('config'=>'show menu'))->row_array();
+        if($setting['value']=='ya'){
+            // cari level user
+            $id_user_level = $this->session->userdata('id_user_level');
+            if ($id_user_level == "") {
+                $id_user_level = 0;
+            }
+            $sql_menu = "
+              SELECT * 
+              FROM pxmenu 
+              WHERE id 
+                in(
+                    select id_menu 
+                    from pxusermenu 
+                    where group_user = $id_user_level
+                    ) 
+                and ismain_menu= 0 
+                and isaktif    = '1' 
+            ORDER BY position asc";
+        }else{
+            $sql_menu = "select * from pxmenu where isaktif='1' and ismain_menu=0 order by position asc";
+        }
 
-                <?php if (isset($menu_item['subitems']) && count($menu_item['subitems']) > 0) {?>
-                    <ul class="sub_menu">
-                        <?php foreach ($menu_item['subitems'] as $lvl1_menu_item) {?>
-                            <?php if (isset($lvl1_menu_item['module']) || isset($lvl1_menu_item['link']) || (isset($lvl1_menu_item['subitems']) && count($lvl1_menu_item['subitems']) > 0)) {?>
-                                <li class="<?php echo (isset($lvl1_menu_item['subitems']) && count($lvl1_menu_item['subitems']) > 0 ? 'dropdown' : '') ?>">
-                                    <a href="<?php echo (isset($lvl1_menu_item['module']) ? site_url($context . '/' . $lvl1_menu_item['module'] . (isset($lvl1_menu_item['action']) ? '/' . $lvl1_menu_item['action'] : '')) : (isset($lvl1_menu_item['link']) ? site_url($lvl1_menu_item['link']) : "#")) ?>">
-                                        <?php if (isset($lvl1_menu_item['icon']) || isset($lvl1_menu_item['module']) && isset($modules[$lvl1_menu_item['module']]['icon'])) {?>
-                                            <img src="<?php site_url('/assets/img/' . (isset($lvl1_menu_item['icon']) ? $lvl1_menu_item['icon'] : $modules[$lvl1_menu_item['module']]['icon']))?>" alt="" />
-                                        <?php }?>
-                                        <?php echo (isset($lvl1_menu_item['title']) ? $lvl1_menu_item['title'] : $modules[$lvl1_menu_item['module']]['title']) ?>
-                                    </a>
-                                </li>
-                            <?php }?>
-                        <?php }?>
-                    </ul>
-                <?php }?>
-            </li>
-        <?php }?>
-    <?php }?>
+        $main_menu = $this->db->query($sql_menu)->result();
+
+        foreach ($main_menu as $menu){
+            // chek is have sub menu
+            $this->db->where('ismain_menu',$menu->id_menu);
+            $this->db->where('isaktif','1');
+            $this->db->order_by('position');
+            $submenu = $this->db->get('pxmenu');
+            if($submenu->num_rows()>0){
+                // display sub menu
+                echo "<li class='treeview'>
+                        <a href='#'>
+                            <i class='$menu->icon'></i> <span>".strtoupper($menu->title)."</span>
+                            <span class='pull-right-container'>
+                                <i class='fa fa-angle-left pull-right'></i>
+                            </span>
+                        </a>
+                        <ul class='treeview-menu' style='display: none;'>";
+                        foreach ($submenu->result() as $sub){
+                            echo "<li>".anchor($sub->url,"<i class='$sub->icon'></i> ".strtoupper($sub->title))."</li>"; 
+                        }
+                        echo" </ul>
+                    </li>";
+            }else{
+                // display main menu
+                echo "<li>";
+                echo anchor($menu->url,"<i class='".$menu->icon."'></i> 
+                    <span class='title'>".strtoupper($menu->title)."</span");
+                echo "</li>";
+            }
+        }
+        ?>        
 </ul>

@@ -7,6 +7,7 @@ class Admin_Controller extends Authenticated_Controller {
         parent::__construct();
 
         $this->load->model('role_m');
+        $this->load->model('pxmenu_m');
         $this->data['meta_title'] = 'Admin Paneli';
         $this->data['useDatatables'] = FALSE;
 
@@ -90,5 +91,29 @@ class Admin_Controller extends Authenticated_Controller {
 
 
         $this->data['leftmenu'] = $this->filter_menu_items($leftmenu_base);
+    }
+
+    public function get_menu_all() {
+        // cari level user
+        $id_user_level = $this->session->userdata('group_user');
+        if ($id_user_level == "") {
+            $id_user_level = 0;
+        }
+        $sql = "
+              SELECT * 
+              FROM pxmenu 
+              WHERE id
+                in(
+                    select id_menu 
+                    from pxusermenu
+                    where group_user = $id_user_level
+                    ) 
+                and is_main_menu= 0 
+                and is_aktif    = '1' 
+            ORDER BY urutan asc";
+
+        $result = $this->db->query($sql);
+
+        return $result->result_array();
     }
 }
