@@ -44,22 +44,19 @@
 
         $main_menu = $this->db->query($sql_menu)->result();
 
-        foreach ($main_menu as $menu){
+        foreach ($main_menu as $menu){            
             // chek is have sub menu
-            $this->db->where('ismain_menu',$menu->id_menu);
+            $this->db->where('ismain_menu',$menu->id);
             $this->db->where('isaktif','1');
             $this->db->order_by('position');
-            $submenu = $this->db->get('pxmenu');
+            $submenu = $this->db->get('pxmenu');                        
             if($submenu->num_rows()>0){
-                // display sub menu
-                echo "<li class='treeview'>
-                        <a href='#'>
-                            <i class='$menu->icon'></i> <span>".strtoupper($menu->title)."</span>
-                            <span class='pull-right-container'>
-                                <i class='fa fa-angle-left pull-right'></i>
-                            </span>
-                        </a>
-                        <ul class='treeview-menu' style='display: none;'>";
+                // display sub menu                
+                echo "<li>";
+                echo anchor($menu->url,"<i class='".$menu->icon."'></i>
+                                <span class='title'>".strtoupper($menu->title)."</span>
+                                <span class='arrow'/>");
+                        echo "<ul class='sub-menu'>";
                         foreach ($submenu->result() as $sub){
                             echo "<li>".anchor($sub->url,"<i class='$sub->icon'></i> ".strtoupper($sub->title))."</li>"; 
                         }

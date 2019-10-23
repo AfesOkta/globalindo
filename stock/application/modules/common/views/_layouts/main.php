@@ -329,6 +329,7 @@
     <!-- END SIDEBAR -->
     <!-- BEGIN CONTENT -->
     <div class="page-content">
+        <br/>
         <?php $this->load->view($subview);?>
     </div>
     <!-- END CONTENT -->

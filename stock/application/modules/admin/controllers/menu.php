@@ -14,3 +14,4 @@ class Menu extends Admin_Controller {
 		$this->data['sAjaxSource'] = 'admin/menu/datatable';
 		$this->load->view('common/_layouts/main',$this->data);
 	}
+}
